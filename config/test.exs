@@ -11,7 +11,7 @@ config :logger, level: :warn
 
 # Configure your database
 config :append, Append.Repo,
-  username: "postgres",
+  username: "append_only",
   password: "postgres",
   database: "append_test",
   hostname: "localhost",
