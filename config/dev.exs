@@ -68,7 +68,8 @@ config :phoenix, :plug_init_mode, :runtime
 
 # Configure your database
 config :append, Append.Repo,
-  username: "postgres",
+  migration_timestamps: [type: :naive_datetime_usec],
+  username: "append_only",
   password: "postgres",
   database: "append_dev",
   hostname: "localhost",
