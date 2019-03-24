@@ -2,6 +2,7 @@ defmodule Append.Address do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @timestamps_opts [type: :naive_datetime_usec]
   schema "addresses" do
     field :address_line_1, :string
     field :address_line_2, :string
