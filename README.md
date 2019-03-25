@@ -2,7 +2,7 @@
 
 Following https://github.com/dwyl/phoenix-ecto-append-only-log-example to verify steps.
 
-
+[![Build Status](https://travis-ci.org/nelsonic/append-only-log-ex.svg?branch=master)](https://travis-ci.org/nelsonic/append-only-log-ex)
 
 # Append
 
