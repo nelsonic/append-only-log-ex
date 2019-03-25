@@ -36,6 +36,10 @@ defmodule Append.AppendOnlyLog do
         Repo.get(__MODULE__, id)
       end
 
+      def all do
+        Repo.all(__MODULE__)
+      end
+
       def get_by(clauses) do
         Repo.get_by(__MODULE__, clauses)
       end

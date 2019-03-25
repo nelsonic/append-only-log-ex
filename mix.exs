@@ -12,7 +12,7 @@ defmodule Append.MixProject do
       aliases: aliases(),
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test,
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test,
       "coveralls.post": :test, "coveralls.html": :test]
     ]
   end
@@ -62,7 +62,7 @@ defmodule Append.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"],
-      "cover": ["coveralls.json"],
+      cover: ["coveralls.json"],
       "cover.html": ["coveralls.html"]
     ]
   end
