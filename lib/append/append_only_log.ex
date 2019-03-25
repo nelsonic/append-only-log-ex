@@ -32,12 +32,28 @@ defmodule Append.AppendOnlyLog do
         |> Repo.insert()
       end
 
-      def get(id) do
-        Repo.get(__MODULE__, id)
+      def get(entry_id) do
+        query =
+          from(
+            m in __MODULE__,
+            where: m.entry_id == ^entry_id,
+            order_by: [desc: :inserted_at],
+            limit: 1,
+            select: m
+          )
+
+        Repo.one(query)
       end
 
       def all do
-        Repo.all(__MODULE__)
+        query =
+          from(m in __MODULE__,
+            distinct: m.entry_id,
+            order_by: [desc: :inserted_at],
+            select: m
+          )
+
+        Repo.all(query)
       end
 
       def get_by(clauses) do
@@ -47,6 +63,8 @@ defmodule Append.AppendOnlyLog do
       def update(%__MODULE__{} = item, attrs) do
         item
         |> Map.put(:id, nil)
+        |> Map.put(:inserted_at, nil)
+        |> Map.put(:updated_at, nil)
         |> __MODULE__.changeset(attrs)
         |> Repo.insert()
       end

@@ -19,7 +19,7 @@ defmodule Append.AddressTest do
     test "get/1" do
       {:ok, item} = insert_address()
 
-      assert Address.get(item.id) == item
+      assert Address.get(item.entry_id) == item
     end
 
     test "all/0" do
@@ -48,5 +48,22 @@ defmodule Append.AddressTest do
 
     assert updated_item.name == item.name
     assert updated_item.tel != item.tel
+  end
+
+
+  test "get updated item" do
+    {:ok, item} = insert_address()
+
+    {:ok, updated_item} = Address.update(item, %{tel: "0123444444"})
+
+    assert Address.get(item.entry_id) == updated_item
+  end
+
+  test "all/0 does not include old items" do
+    {:ok, item} = insert_address()
+    {:ok, _} = insert_address("Loki")
+    {:ok, _} = Address.update(item, %{postcode: "W2 3EC"})
+
+    assert length(Address.all()) == 2
   end
 end
