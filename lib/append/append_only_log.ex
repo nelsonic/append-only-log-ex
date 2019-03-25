@@ -34,7 +34,7 @@ defmodule Append.AppendOnlyLog do
       end
 
       def get(entry_id) do
-        query =
+        sub =
           from(
             m in __MODULE__,
             where: m.entry_id == ^entry_id,
@@ -43,16 +43,20 @@ defmodule Append.AppendOnlyLog do
             select: m
           )
 
+        query = from(m in subquery(sub), where: not m.deleted, select: m)
+
         Repo.one(query)
       end
 
       def all do
-        query =
+        sub =
           from(m in __MODULE__,
             distinct: m.entry_id,
             order_by: [desc: :inserted_at],
             select: m
           )
+
+        query = from(m in subquery(sub), where: not m.deleted, select: m)
 
         Repo.all(query)
       end
@@ -76,6 +80,15 @@ defmodule Append.AppendOnlyLog do
         select: m
 
         Repo.all(query)
+      end
+
+      def delete(%__MODULE__{} = item) do
+        item
+        |> Map.put(:id, nil)
+        |> Map.put(:inserted_at, nil)
+        |> Map.put(:updated_at, nil)
+        |> __MODULE__.changeset(%{deleted: true})
+        |> Repo.insert()
       end
     end
   end
