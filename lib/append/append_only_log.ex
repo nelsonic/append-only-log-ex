@@ -1,5 +1,6 @@
 defmodule Append.AppendOnlyLog do
   alias Append.Repo
+  require Ecto.Query
 
   @moduledoc """
   Behaviour that defines functions for accessing and inserting data in an
@@ -24,7 +25,7 @@ defmodule Append.AppendOnlyLog do
 
   defmacro __before_compile__(_env) do
     quote do
-      import Ecto.Query, only: [from: 2]
+      import Ecto.Query
 
       def insert(attrs) do
         %__MODULE__{}

@@ -9,6 +9,7 @@ defmodule Append.Address do
     field :address_line_1, :string
     field :address_line_2, :string
     field :city, :string
+    field(:deleted, :boolean, default: false)
     field(:entry_id, :string)
     field :name, :string
     field :postcode, :string
@@ -21,8 +22,10 @@ defmodule Append.Address do
   def changeset(address, attrs) do
     address
     |> insert_entry_id()
-    |> cast(attrs, [:name, :address_line_1, :address_line_2, :city, :postcode, :tel, :entry_id])
-    |> validate_required([:name, :address_line_1, :address_line_2, :city, :postcode, :tel, :entry_id])
+    |> cast(attrs, [:name, :address_line_1, :address_line_2, :city,
+      :postcode, :tel, :entry_id, :deleted])
+    |> validate_required([:name, :address_line_1, :address_line_2,
+      :city, :postcode, :tel, :entry_id])
   end
 
   def insert_entry_id(address) do
