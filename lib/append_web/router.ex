@@ -15,8 +15,8 @@ defmodule AppendWeb.Router do
 
   scope "/", AppendWeb do
     pipe_through :browser
-
     get "/", PageController, :index
+    resources "/addresses", AddressController
   end
 
   # Other scopes may use custom stacks.
