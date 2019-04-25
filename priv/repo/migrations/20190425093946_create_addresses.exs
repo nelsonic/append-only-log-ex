@@ -1,11 +1,6 @@
 defmodule Append.Repo.Migrations.CreateAddresses do
   use Ecto.Migration
 
-  # Get name of our Ecto Repo module from our config
-  @repo :append |> Application.get_env(:ecto_repos) |> List.first()
-  # Get username of Ecto Repo from our config
-  @db_user Application.get_env(:append, @repo)[:username]
-
   def change do
     create table(:addresses) do
       add :name, :string
@@ -18,6 +13,5 @@ defmodule Append.Repo.Migrations.CreateAddresses do
       timestamps()
     end
 
-    execute("REVOKE UPDATE, DELETE ON TABLE addresses FROM #{@db_user}")
   end
 end

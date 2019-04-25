@@ -1,0 +1,36 @@
+<h1>Listing Addresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address line 1</th>
+      <th>Address line 2</th>
+      <th>City</th>
+      <th>Postcode</th>
+      <th>Tel</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for address <- @addresses do %>
+    <tr>
+      <td><%= address.name %></td>
+      <td><%= address.address_line_1 %></td>
+      <td><%= address.address_line_2 %></td>
+      <td><%= address.city %></td>
+      <td><%= address.postcode %></td>
+      <td><%= address.tel %></td>
+
+      <td>
+        <%= link "Show", to: Routes.address_path(@conn, :show, address) %>
+        <%= link "Edit", to: Routes.address_path(@conn, :edit, address) %>
+        <%= link "Delete", to: Routes.address_path(@conn, :delete, address), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Address", to: Routes.address_path(@conn, :new) %></span>
